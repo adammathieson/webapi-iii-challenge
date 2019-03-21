@@ -39,7 +39,7 @@ router.get('/:id', (req, res) => {
 });
 
 //Get(user-posts)
-router.get('/posts/:userId', (req, res) => {
+router.get('/:id/posts', (req, res) => {
     const userId = req.params.userId;
     db  
         .getUserPosts(userId)
