@@ -4,6 +4,7 @@ const db = require('../data/helpers/userDb.js');
 
 const router = express.Router();
 
+//Custom middleware
 const bigName = (req, res, next) => {
     name = req.body.name.toUpperCase();
     next();
