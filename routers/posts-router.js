@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
             res.status(200).json(post);
         })
         .catch(err => {
-            res.status(500).json({ error: 'There was an error while saving the post to the database.' });
+            res.status(500).json({ error: 'The posts information could not be retrieved.' });
         })
 })
 
@@ -72,7 +72,7 @@ router.put('/:id', (req, res) => {
     const id = req.params.id;
     const { user_id, text } = req.body;
     if(!user_id || !text) {
-        return res.status(400).json({ message: 'The post with specified ID does not exist.' })
+        return res.status(400).json({ message: 'Please provide a user ID and text.' })
     }
     db
         .update(id, req.body)
