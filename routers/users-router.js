@@ -4,6 +4,11 @@ const db = require('../data/helpers/userDb.js');
 
 const router = express.Router();
 
+const bigName = (req, res, next) => {
+    name = req.body.name.toUpperCase();
+    next();
+}
+
 //Get
 router.get('/', (req, res) => {
     db
@@ -49,8 +54,8 @@ router.get('/posts/:userId', (req, res) => {
 });
 
 //Post
-router.post('/', (req, res) => {
-    const { name } = req.body;
+router.post('/', bigName, (req, res) => {
+    
     if(!name) {
         return res.status(400).json({ errorMessage: 'Please provide an id and name for new user.' })
     }
@@ -82,9 +87,9 @@ router.delete('/:id', (req, res) => {
 });
 
 //Update{
-router.put('/:id', (req, res) => {
+router.put('/:id', bigName, (req, res) => {
     const id = req.params.id;
-    const { name } = req.body;
+    
     db
         .update(id, { name })
         .then(user => {

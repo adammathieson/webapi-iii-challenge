@@ -58,7 +58,7 @@ router.delete('/:id', (req, res) => {
         .remove(id)
         .then(post => {
             if(post === 0) {
-                return res.status(404).json({ message: 'The post with specified ID does not exist.' })
+                return res.status(404).json({ errorMessage: 'The post with specified ID does not exist.' })
             }
             res.status(202).json({ success: `Post ${id} successfully removed.` })
         })
