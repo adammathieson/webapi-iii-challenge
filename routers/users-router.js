@@ -37,7 +37,7 @@ router.get('/posts/:userId', (req, res) => {
     const userId = req.params.userId;
     db  
         .getUserPosts(userId)
-        then(posts => {
+        .then(posts => {
             if(posts === 0) {
                 return res.status(404).json({ message: 'The user with specified ID does not have any posts.' })
             }
@@ -50,15 +50,12 @@ router.get('/posts/:userId', (req, res) => {
 
 //Post
 router.post('/', (req, res) => {
-    const { id, name } = req.body;
-    if(!id || !name) {
+    const { name } = req.body;
+    if(!name) {
         return res.status(400).json({ errorMessage: 'Please provide an id and name for new user.' })
     }
     db
-        .insert({
-            id,
-            name
-        })
+        .insert({ name })
         .then(user => {
             res.status(201).json(user)
         })
@@ -80,7 +77,7 @@ router.delete('/:id', (req, res) => {
             res.status(202).json({ success: `User ${id} successfully removed from database.` })
         })
         .catch(err => {
-            res.status(500).json({ error: 'There user could not be removed from database.' })
+            res.status(500).json({ error: 'The user could not be removed from database.' })
         });
 });
 
@@ -89,9 +86,7 @@ router.put('/:id', (req, res) => {
     const id = req.params.id;
     const { name } = req.body;
     db
-        .update(id, {
-            name
-        })
+        .update(id, { name })
         .then(user => {
             if(user === 0) {
                 return res.status(404).json({ errorMessage: 'There is no user by that ID.' })
